@@ -5,6 +5,54 @@ const bcrypt = require('bcrypt');
 const JWT = require('jsonwebtoken');
 const User = require('../models/User.model');
 
+
+/**
+* @swagger
+*   /auth/login:
+*   post:
+*       description: Login to a user account
+*       summary: 
+*       tags:
+*           - Authentication
+*       responses:
+*           '200':
+*               description: User logged in successfully.
+*               schema:
+*                 type: object
+*                 properties:
+*                   name:
+*                       type: string
+*                   email:
+*                       type: string
+*                   token:
+*                       type: string
+
+*           '400':
+*               description: Bad Request
+*               schema:
+*                 type: object
+*                 properties:
+*                   error:
+*                       type: string
+*           '500':
+*               description: Internal Server Error
+*               schema:
+*                   type: object
+*                   properties:
+*                       error:
+*                           type: string
+*       parameters:
+*         - in: body
+*           name: user
+*           description: User login details
+*           schema:
+*              type: object
+*              properties:
+*                  email:
+*                      type: string
+*                  password:
+*                      type: string
+*/
 router.post('/login', async (req, res) => {
     const { error } = AuthValidator.loginValidator(req.body);
     if (error) return res.status(400).json({ error: error.details[0].message });
