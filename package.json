@@ -1,0 +1,36 @@
+{
+  "name": "uptime-bot-api",
+  "version": "1.0.0",
+  "description": "Uptime Bot",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abidtkg/uptime-bot-api.git"
+  },
+  "keywords": [
+    "Uptime",
+    "API"
+  ],
+  "author": "Abid Hasan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abidtkg/uptime-bot-api/issues"
+  },
+  "homepage": "https://github.com/abidtkg/uptime-bot-api#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "joi": "^18.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.6.2",
+    "swagger-jsdoc": "^6.3.0",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
