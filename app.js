@@ -11,11 +11,13 @@ app.use(express.json());
 // IMPORT ROUTES
 const homeRoutes = require('./routes/home.routes');
 const authRoutes = require('./routes/auth.routes');
+const groupRoutes = require('./routes/group.routes');
 
 // USE ROUTES
 app.use('/', homeRoutes);
 app.use('/doc', SwaggerUIExpress.serve, SwaggerUIExpress.setup(swaggerDocument));
 app.use('/auth', authRoutes);
+app.use('/group', groupRoutes);
 
 // DATABASE CONNECTION
 mongoose.connect(process.env.MONGODB_URI);

@@ -27,7 +27,6 @@ const AdminTokenVerify = require('../configs/AdminTokenVerify.config');
 *                       type: string
 *                   token:
 *                       type: string
-
 *           '400':
 *               description: Bad Request
 *               schema:
