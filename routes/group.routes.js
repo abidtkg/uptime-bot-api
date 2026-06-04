@@ -122,7 +122,7 @@ router.post('/create', UserTokenVerify, async (req, res) => {
 
 /**
 * @swagger
-*   /group/update/:id:
+*   /group/update/{id}:
 *   patch:
 *       description: Update an existing group
 *       summary: 
@@ -161,6 +161,12 @@ router.post('/create', UserTokenVerify, async (req, res) => {
 *              properties:
 *                  name:
 *                      type: string
+*         - in: path
+*           name: id
+*           description: Group ID
+*           required: true
+*           schema:
+*              type: string
 */
 router.patch('/update/:id', UserTokenVerify, async (req, res) => {
     const { error } = GroupValidator.createGroupValidator(req.body);
@@ -188,5 +194,65 @@ router.patch('/update/:id', UserTokenVerify, async (req, res) => {
     }
 });
 
+/**
+* @swagger
+*   /group/delete/{id}:
+*   delete:
+*       description: Delete an existing group
+*       summary: 
+*       tags:
+*           - Groups
+*       security:
+*           - APIKeyHeader: []
+*       responses:
+*           '200':
+*               description: Group deleted successfully.
+*               schema:
+*                 type: object
+*                 properties:
+*                   message:
+*                       type: string
+*           '400':
+*               description: Bad Request
+*               schema:
+*                 type: object
+*                 properties:
+*                   error:
+*                       type: string
+*           '500':
+*               description: Internal Server Error
+*               schema:
+*                   type: object
+*                   properties:
+*                       error:
+*                           type: string
+*       parameters:
+*         - in: path
+*           name: id
+*           description: Group ID
+*           required: true
+*           schema:
+*              type: string
+*/
+router.delete('/delete/:id', UserTokenVerify, async (req, res) => {
+    const user_id = req.user.id;
+    const group_id = req.params.id;
+    
+    let group;
+    try {
+        group = await Group.findOne({ _id: group_id, user: user_id });
+    }catch(error){
+        return res.status(500).json({ error: '500 Internal Server Error' });
+    }
+
+    if(!group) return res.status(404).json({ error: 'Group not found' });
+    return res.status(400).json({ error: 'Group cannot be deleted' });
+    // try {
+    //     await group.deleteOne();
+    //     return res.status(200).json({ message: 'Group deleted successfully' });
+    // } catch (error) {
+    //     return res.status(500).json({ error: '500 Internal Server Error' });
+    // }
+});
 
 module.exports = router;

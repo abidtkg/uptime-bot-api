@@ -52,8 +52,21 @@ const MonitorSchema = new Schema({
         type: Boolean,
         default: false
     },
-    httpOptions: {},
-    sslOptions: {},
+    http_options: {
+        http_method: {
+            type: String,
+            enum: ENUM_CONFIG.HTTP_METHODS_ENUM.ALL,
+            required: false
+        },
+        http_headers: {
+            type: Object,
+            required: false
+        },
+        http_response_status: {
+            type: Number,
+            required: false
+        }
+    },
     consecutiveFailuresToAlert: {
         type: Number,
         default: 3,

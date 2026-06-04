@@ -12,12 +12,17 @@ app.use(express.json());
 const homeRoutes = require('./routes/home.routes');
 const authRoutes = require('./routes/auth.routes');
 const groupRoutes = require('./routes/group.routes');
+const monitorRoutes = require('./routes/monitor.routes');
 
 // USE ROUTES
 app.use('/', homeRoutes);
 app.use('/doc', SwaggerUIExpress.serve, SwaggerUIExpress.setup(swaggerDocument));
 app.use('/auth', authRoutes);
 app.use('/group', groupRoutes);
+app.use('/monitor', monitorRoutes);
+app.use((req, res) => {
+    res.status(404).json({error: '404 Not Found!'});
+});
 
 // DATABASE CONNECTION
 mongoose.connect(process.env.MONGODB_URI);
