@@ -21,24 +21,19 @@ const MonitorSchema = new Schema({
         required: true,
         enum: ENUM_CONFIG.MONITOR_TYPES_ENUM.ALL
     },
-    target: {
-        type: String,
-        required: true
-    },
     status: {
         type: String,
         default: ENUM_CONFIG.MONITOR_STATUSES_ENUM.UP,
         enum: ENUM_CONFIG.MONITOR_STATUSES_ENUM.ALL,
     },
+    endpoint: {
+        type: String,
+        required: true
+    },
     intervalSeconds: {
         type: Number,
         required: true,
         min: 30
-    },
-    timeoutMs: {
-        type: Number,
-        required: true,
-        max: 30000
     },
     active: {
         type: Boolean,
@@ -51,38 +46,6 @@ const MonitorSchema = new Schema({
     maintenanceMode: {
         type: Boolean,
         default: false
-    },
-    http_options: {
-        http_method: {
-            type: String,
-            enum: ENUM_CONFIG.HTTP_METHODS_ENUM.ALL,
-            required: false
-        },
-        http_headers: {
-            type: Object,
-            required: false
-        },
-        http_response_status: {
-            type: Number,
-            required: false
-        }
-    },
-    consecutiveFailuresToAlert: {
-        type: Number,
-        default: 3,
-    },
-    isPublic: {
-        type: Boolean,
-        default: false
-    },
-    publicSlug: {
-        type: String,
-        unique: true,
-        sparse: true
-    },
-    publicDisplayName: {
-        type: String,
-        required: false
     },
     group: {
         type: Schema.Types.ObjectId,
@@ -104,10 +67,6 @@ const MonitorSchema = new Schema({
     last_alert_at: {
         type: Date,
         default: null
-    },
-    total_checks: {
-        type: Number,
-        default: 0
     },
     total_downtimes: {
         type: Number,
